@@ -30,14 +30,6 @@ CREATE OR REPLACE FUNCTION
 	RETURN acomulador;
 END fn_ganancia_padre; 
 
---prueba funcion fn_ganancia_padre
-DECLARE
-	valor NUMBER;
-BEGIN
-	valor := fn_ganancia_padre('2');
-	DBMS_OUTPUT.put_line ('valor de la funcion=   ' || valor);
-END;
-
 --Trigger que verifica insercion de ganancia
 CREATE OR REPLACE TRIGGER check_insert_ganancia 
 BEFORE INSERT ON sucursal
@@ -46,6 +38,26 @@ DECLARE
 	ganancia_p sucursal.ganancia%TYPE;
 BEGIN
 	ganancia_p := fn_ganancia_padre(:NEW.sucpadre);
+	IF ganancia_p < :NEW.ganancia THEN
+		RAISE_APPLICATION_ERROR(-20505, '¡Ganancia insertada mayor a suma de ganancia de los padres!');
+	END IF;
+END;
+
+--Trigger que verifica la actualizacion de ganancia
+CREATE OR REPLACE TRIGGER check_update_ganancia 
+BEFORE UPDATE OF ganancia ON sucursal 
+FOR EACH ROW
+DECLARE
+	PRAGMA AUTONOMOUS_TRANSACTION;
+	ganancia_p sucursal.ganancia%TYPE;
+BEGIN
+	DBMS_OUTPUT.PUT_LINE('valor codsuc= '||:NEW.codsuc);
+	DBMS_OUTPUT.PUT_LINE('valor ganancia= '||:NEW.ganancia);
+	DBMS_OUTPUT.PUT_LINE('valor sucpadre= '||:NEW.sucpadre);
+
+	ganancia_p := fn_ganancia_padre(:NEW.sucpadre);
+	DBMS_OUTPUT.PUT_LINE('ganancia ingresada=  '||:NEW.ganancia);
+
 	IF ganancia_p < :NEW.ganancia THEN
 		RAISE_APPLICATION_ERROR(-20505, '¡Ganancia insertada mayor a suma de ganancia de los padres!');
 	END IF;

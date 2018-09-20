@@ -11,7 +11,7 @@ INSERT INTO sucursal (codsuc, ganancia, sucpadre)
 VALUES (1,5000,NULL);
 
 INSERT INTO sucursal (codsuc, ganancia, sucpadre)
-VALUES (2, 200, 1
+VALUES (2, 200, 1);
 
 INSERT INTO sucursal (codsuc, ganancia, sucpadre)
 VALUES (9, 300, 1);
@@ -30,3 +30,4 @@ VALUES (22, 50, 11);
 
 INSERT INTO sucursal (codsuc, ganancia, sucpadre)
 VALUES (29, 80, 16);
+

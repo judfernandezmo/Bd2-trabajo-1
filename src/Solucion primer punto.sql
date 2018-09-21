@@ -34,7 +34,7 @@ CREATE OR REPLACE FUNCTION
 END fn_ganancia_padre; 
 
 --Trigger que verifica insercion de ganancia
-CREATE OR REPLACE TRIGGER check_insert_ganancia 
+CREATE OR REPLACE TRIGGER ver_insert_ganancia 
 BEFORE INSERT ON sucursal
 FOR EACH ROW
 DECLARE
@@ -47,7 +47,7 @@ BEGIN
 END;
 
 --Trigger que verifica la actualizacion de ganancia
-CREATE OR REPLACE TRIGGER check_update_ganancia 
+CREATE OR REPLACE TRIGGER ver_update_ganancia 
 BEFORE UPDATE OF ganancia ON sucursal 
 FOR EACH ROW
 DECLARE
@@ -70,17 +70,27 @@ END;
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 --Solucion numeral B primer punto
 
+--Funcionque verifica los niveles:
+CREATE OR REPLACE FUNCTION (nivel IN NUMBER)
+RETURN NUMBER
+
 --Procedimiento que recibe lista de niveles
 --y obtiene la suma de las ganancias de dichos niveles
-CREAT OR REPLACE PROCEDURE suma_niveles @codes VARCHAR(MAX)
-IS 
-	arreglo tipo_array;
-	i NUMBER;
+CREATE OR REPLACE TYPE aux_array AS TABLE OF NUMBER;
+CREATE OR REPLACE PROCEDURE suma_niveles (arreglo IN aux_array)
+AS 
 BEGIN
-	DBMS_OUTPUT.PUT_LINE(arreglo.COUNT);
-	i:= arreglo.FIRST;
-	WHILE i IS NOT NULL LOOP
+	DBMS_OUTPUT.PUT_LINE('Cantidad de elementos:  ' || arreglo.COUNT);
+	FOR i IN arreglo.FIRST .. arreglo.LAST
+	LOOP
 		DBMS_OUTPUT.PUT_LINE('Pos:  ' || i || '  Val:  ' || arreglo(i));
-		i := arreglo.NEXT(i);
+
 	END LOOP;
+END;
+
+--Prueba del proceso
+DECLARE     
+valores aux_array := aux_array ((2), (3), (5), (1), (7));   
+BEGIN     
+suma_niveles(valores);   
 END;

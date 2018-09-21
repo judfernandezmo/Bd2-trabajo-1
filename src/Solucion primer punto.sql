@@ -70,13 +70,44 @@ END;
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 --Solucion numeral B primer punto
 
---Funcionque verifica los niveles:
+--Definimos el tipo arreglo globalmente:
+CREATE OR REPLACE TYPE aux_array AS TABLE OF NUMBER;
+--Definimos variables globales:
+CREATE OR REPLACE PACKAGE general 
+IS
+	arreglo_nivel aux_array;
+	iterador NUMBER;
+END;
+
+--Funcion que verifica los niveles:
 CREATE OR REPLACE FUNCTION (nivel IN NUMBER)
-RETURN NUMBER
+RETURN aux_array
+AS 
+	level_i sucursal.level%TYPE;
+	codsuc_i sucursal.codsuc%TYPE;
+	ganancia_i sucursal.ganancia%TYPE;
+
+	CURSOR cur IS
+		SELECT codsuc, ganancia, level
+		FROM sucursal
+		START WITH codsuc = 1
+		CONNECT BY PRIOR codsuc = sucpadre;
+BEGIN 
+	OPEN cur;
+		LOOP
+			FETCH cur.codsuc, cur.ganancia, cur.level
+			 INTO codsuc_i, ganancia_i, level_i;
+			EXIT WHEN cur%NOTFOUND;
+			arreglo_nivel 
+			DBMS_OUTPUT.PUT_LINE('gananciai=  ' || gananciai);
+			DBMS_OUTPUT.PUT_LINE('acomulador=  ' || acomulador);
+		END LOOP;
+	CLOSE cur;
+	RETURN
+END;
 
 --Procedimiento que recibe lista de niveles
 --y obtiene la suma de las ganancias de dichos niveles
-CREATE OR REPLACE TYPE aux_array AS TABLE OF NUMBER;
 CREATE OR REPLACE PROCEDURE suma_niveles (arreglo IN aux_array)
 AS 
 BEGIN

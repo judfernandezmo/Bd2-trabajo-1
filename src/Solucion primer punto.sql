@@ -125,3 +125,50 @@ valores aux_array := aux_array ((2), (3), (5), (1), (7));
 BEGIN     
 suma_niveles(valores);   
 END;
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--Solucion numeral c primer punto
+
+--Proceso de actualización nivel
+CREATE OR REPLACE PROCEDURE update_nivel (o_sucpadre IN sucursal.sucpadre%TYPE, 
+	sucpadre_b IN sucursal.sucpadre%TYPE)
+AS 
+BEGIN
+	DBMS_OUTPUT.PUT_LINE('Updated:  ' || sucpadre_b);
+	DBMS_OUTPUT.PUT_LINE('Updated sucpadre sin b pero con o :v:  ' || o_sucpadre);
+	UPDATE sucursal SET sucpadre = o_sucpadre
+    WHERE codsuc = sucpadre_b; 
+    DBMS_OUTPUT.PUT_LINE('C marnat');
+END;
+
+--Trigger para verificar borrado
+CREATE OR REPLACE TRIGGER ver_borrado
+BEFORE DELETE ON sucursal
+FOR EACH ROW
+DECLARE
+    PRAGMA AUTONOMOUS_TRANSACTION;
+    sucpadre_g sucursal.sucpadre%TYPE;
+    sucpadre_b sucursal.sucpadre%TYPE;
+    CURSOR curso IS
+		SELECT codsuc
+		FROM sucursal
+		WHERE sucpadre = :OLD.codsuc;
+BEGIN
+    sucpadre_g := :OLD.sucpadre;
+    DBMS_OUTPUT.PUT_LINE('codsuc ingresado= '|| :OLD.codsuc);
+    IF (sucpadre_g IS NOT NULL) THEN
+        DBMS_OUTPUT.PUT_LINE('codsuc ingresado= '|| :OLD.codsuc);
+        DBMS_OUTPUT.PUT_LINE('sucpadre ingresado= '|| :OLD.sucpadre);
+        OPEN curso;
+        LOOP
+			FETCH curso INTO sucpadre_b;
+			EXIT WHEN curso%NOTFOUND;
+			DBMS_OUTPUT.PUT_LINE('sucpadre_b= '|| sucpadre_b);
+			update_nivel(sucpadre_g,sucpadre_b);
+		END LOOP;
+		CLOSE curso; 
+    ELSE 
+        RAISE_APPLICATION_ERROR(-20505, '¡No se puede borrar el elemento base!');
+    END IF;	
+END;

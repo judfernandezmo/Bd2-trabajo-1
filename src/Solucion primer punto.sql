@@ -75,15 +75,16 @@ CREATE OR REPLACE TYPE aux_array AS TABLE OF NUMBER;
 --Definimos variables globales:
 CREATE OR REPLACE PACKAGE general 
 IS
-	arreglo_nivel aux_array;
 	iterador NUMBER;
 END;
 
---Funcion que verifica los niveles:
-CREATE OR REPLACE FUNCTION (nivel IN NUMBER)
-RETURN aux_array
+--Funcion que recibe el nivel, verifica los elementos
+--asociados a ese nivel y devuelve la suma de sus ganancias:
+CREATE OR REPLACE FUNCTION suma_por_nivel (nivel IN NUMBER)
+RETURN NUMBER
 AS 
-	level_i sucursal.level%TYPE;
+	acomulador NUMBER := 0;
+	level_i NUMBER;
 	codsuc_i sucursal.codsuc%TYPE;
 	ganancia_i sucursal.ganancia%TYPE;
 
@@ -95,40 +96,55 @@ AS
 BEGIN 
 	OPEN cur;
 		LOOP
-			FETCH cur.codsuc, cur.ganancia, cur.level
+			FETCH cur
 			 INTO codsuc_i, ganancia_i, level_i;
-			EXIT WHEN cur%NOTFOUND;
-			arreglo_nivel 
-			DBMS_OUTPUT.PUT_LINE('gananciai=  ' || gananciai);
-			DBMS_OUTPUT.PUT_LINE('acomulador=  ' || acomulador);
+			EXIT WHEN cur%NOTFOUND; 
+			DBMS_OUTPUT.PUT_LINE('codsuc:  ' || codsuc_i);
+			DBMS_OUTPUT.PUT_LINE('ganancia:  ' || ganancia_i);
+			DBMS_OUTPUT.PUT_LINE('level:  ' || level_i);
+			IF (level_i = nivel) THEN 
+				acomulador := acomulador + ganancia_i;
+			END IF;
 		END LOOP;
 	CLOSE cur;
-	RETURN
+	RETURN acomulador;
+END;
+
+--Prueba de la funcion
+DECLARE     
+	mejia_dice NUMBER := 2;
+	test NUMBER;
+BEGIN     
+	test := suma_por_nivel(mejia_dice);
+	DBMS_OUTPUT.PUT_LINE(test);  
 END;
 
 --Procedimiento que recibe lista de niveles
 --y obtiene la suma de las ganancias de dichos niveles
 CREATE OR REPLACE PROCEDURE suma_niveles (arreglo IN aux_array)
 AS 
+	acomulador_proc  NUMBER := 0;
 BEGIN
 	DBMS_OUTPUT.PUT_LINE('Cantidad de elementos:  ' || arreglo.COUNT);
 	FOR i IN arreglo.FIRST .. arreglo.LAST
 	LOOP
 		DBMS_OUTPUT.PUT_LINE('Pos:  ' || i || '  Val:  ' || arreglo(i));
-
+		acomulador_proc := acomulador_proc + suma_por_nivel(arreglo(i));
+		DBMS_OUTPUT.PUT_LINE('Acomulado por proceso es:  ' || acomulador_proc);
 	END LOOP;
+	DBMS_OUTPUT.PUT_LINE('Suma total de ganancias de sucursales en los niveles ingresados es:  ' || acomulador_proc);
 END;
 
---Prueba del proceso
+--Prueba del proceso - Valor esperado para los 4 niveles (7830)
 DECLARE     
-valores aux_array := aux_array ((2), (3), (5), (1), (7));   
+valores aux_array := aux_array ((2), (4), (1), (3));   
 BEGIN     
 suma_niveles(valores);   
 END;
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
---Solucion numeral c primer punto
+--Solucion numeral C primer punto
 
 --Proceso de actualización nivel
 CREATE OR REPLACE PROCEDURE update_nivel (o_sucpadre IN sucursal.sucpadre%TYPE, 

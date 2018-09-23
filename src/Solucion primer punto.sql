@@ -146,7 +146,9 @@ END;
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 --Solucion numeral C primer punto
 
---Proceso de actualización nivel
+--Proceso de actualización nivel que recibe el sucpadre del elemento a borrar
+--y el codsuc de los elementos hijos y hace el UPDATE para enlazar a los hijos
+--con el padre del elemento que se va a eliminar
 CREATE OR REPLACE PROCEDURE update_nivel (o_sucpadre IN sucursal.sucpadre%TYPE, 
 	sucpadre_b IN sucursal.sucpadre%TYPE)
 AS 
@@ -158,7 +160,8 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('C marnat');
 END;
 
---Trigger para verificar borrado
+--Trigger para verificar borrado rechazando si es el elemento raiz 
+--y actualizando los elementos hijos en caso de ser posible el borrado
 CREATE OR REPLACE TRIGGER ver_borrado
 BEFORE DELETE ON sucursal
 FOR EACH ROW
@@ -183,8 +186,11 @@ BEGIN
 			DBMS_OUTPUT.PUT_LINE('sucpadre_b= '|| sucpadre_b);
 			update_nivel(sucpadre_g,sucpadre_b);
 		END LOOP;
-		CLOSE curso; 
+		CLOSE curso;
+		COMMIT COMMENT 'El sizas funca por fin'; 
     ELSE 
         RAISE_APPLICATION_ERROR(-20505, '¡No se puede borrar el elemento base!');
     END IF;	
 END;
+
+DELETE FROM sucursal WHERE codsuc = 2 ;

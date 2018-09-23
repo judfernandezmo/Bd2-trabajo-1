@@ -193,4 +193,8 @@ BEGIN
     END IF;	
 END;
 
+--Prueba de borrado que debe funcionar
 DELETE FROM sucursal WHERE codsuc = 2 ;
+
+--Prueba de borrado que debe saltar el ERROR
+DELETE FROM sucursal WHERE codsuc = 1 ;

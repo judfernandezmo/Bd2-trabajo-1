@@ -3,9 +3,66 @@
   <titulo> GRAFO DE RUTAS </titulo>
     <red>
       <enlace>
-        <costviaje>  </costviaje>
-        <ptopartida>  </ptopartida>
-        <ptollegada>  </ptollegada>
+        <costviaje> 100 </costviaje>
+        <ptopartida> 1 </ptopartida>
+        <ptollegada> 2 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 50 </costviaje>
+        <ptopartida> 1 </ptopartida>
+        <ptollegada> 3 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 90 </costviaje>
+        <ptopartida> 1 </ptopartida>
+        <ptollegada> 4 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 20 </costviaje>
+        <ptopartida> 2 </ptopartida>
+        <ptollegada> 4 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 30 </costviaje>
+        <ptopartida> 3 </ptopartida>
+        <ptollegada> 4 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 90 </costviaje>
+        <ptopartida> 4 </ptopartida>
+        <ptollegada> 5 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 10000 </costviaje>
+        <ptopartida> 5 </ptopartida>
+        <ptollegada> 1 </ptollegada>
+      </enlace>
+    </red>
+    <red>
+      <enlace>
+        <costviaje> 300 </costviaje>
+        <ptopartida> 2 </ptopartida>
+        <ptollegada> 4 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 40 </costviaje>
+        <ptopartida> 4 </ptopartida>
+        <ptollegada> 5 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 70 </costviaje>
+        <ptopartida> 4 </ptopartida>
+        <ptollegada> 6 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 700 </costviaje>
+        <ptopartida> 5 </ptopartida>
+        <ptollegada> 2 </ptollegada>
+      </enlace>
+      <enlace>
+        <costviaje> 1000 </costviaje>
+        <ptopartida> 6 </ptopartida>
+        <ptollegada> 2 </ptollegada>
       </enlace>
     </red>
 </grafo>

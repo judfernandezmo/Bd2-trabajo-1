@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<grafo>
+  <titulo> GRAFO DE RUTAS </titulo>
+    <red>
+      <enlace>
+        <costviaje>  </costviaje>
+        <ptopartida>  </ptopartida>
+        <ptollegada>  </ptollegada>
+      </enlace>
+    </red>
+</grafo>

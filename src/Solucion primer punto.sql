@@ -110,15 +110,6 @@ BEGIN
 	RETURN acomulador;
 END;
 
---Prueba de la funcion
-DECLARE     
-	mejia_dice NUMBER := 2;
-	test NUMBER;
-BEGIN     
-	test := suma_por_nivel(mejia_dice);
-	DBMS_OUTPUT.PUT_LINE(test);  
-END;
-
 --Procedimiento que recibe lista de niveles
 --y obtiene la suma de las ganancias de dichos niveles
 CREATE OR REPLACE PROCEDURE suma_niveles (arreglo IN aux_array)
@@ -133,13 +124,6 @@ BEGIN
 		DBMS_OUTPUT.PUT_LINE('Acomulado por proceso es:  ' || acomulador_proc);
 	END LOOP;
 	DBMS_OUTPUT.PUT_LINE('Suma total de ganancias de sucursales en los niveles ingresados es:  ' || acomulador_proc);
-END;
-
---Prueba del proceso - Valor esperado para los 4 niveles (7830)
-DECLARE     
-valores aux_array := aux_array ((2), (4), (1), (3));   
-BEGIN     
-suma_niveles(valores);   
 END;
 
 
@@ -192,9 +176,3 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20505, '¡No se puede borrar el elemento base!');
     END IF;	
 END;
-
---Prueba de borrado que debe funcionar
-DELETE FROM sucursal WHERE codsuc = 2 ;
-
---Prueba de borrado que debe saltar el ERROR
-DELETE FROM sucursal WHERE codsuc = 1 ;

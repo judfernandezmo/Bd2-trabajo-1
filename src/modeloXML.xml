@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <grafo>
-  <titulo> GRAFO DE RUTAS </titulo>
-    <red>
-      <enlace>
-        <costviaje>  </costviaje>
-        <ptopartida>  </ptopartida>
-        <ptollegada>  </ptollegada>
-      </enlace>
-    </red>
+	<enlace NO = "1">
+		<costviaje>  </costviaje>
+		<ptopartida>  </ptopartida>
+		<ptollegada>  </ptollegada>
+	</enlace>
+	<enlace NO = "2">
+		<costviaje>  </costviaje>
+		<ptopartida>  </ptopartida>
+		<ptollegada>  </ptollegada>
+	</enlace>
+	...
+	<enlace NO = "n">
+		<costviaje>  </costviaje>
+		<ptopartida>  </ptopartida>
+		<ptollegada>  </ptollegada>
+	</enlace>
 </grafo>

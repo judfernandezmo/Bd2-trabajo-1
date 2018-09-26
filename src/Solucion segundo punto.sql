@@ -1,43 +1,35 @@
-INSERT INTO red VALUES(5,'ejemplo', XMLTYPE('
+--SOLUCION SEGUNDO PUNTO:
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--Solucion numeral A segundo punto
+
+--Esquema XML (Adicionalmente esta el archivo modeloXML.xml)
+<?xml version="1.0" encoding="UTF-8" ?>
 <grafo>
-    <enlace NO = "1">
-        <nodo1>100</nodo1>
-        <costo>50</costo>        
-        <nodo2>300</nodo2>
-    </enlace>
-    <enlace NO = "2">
-        <nodo1>100</nodo1>
-        <costo>90</costo>        
-        <nodo2>300</nodo2>
-    </enlace>
-     <enlace NO = "3">
-        <nodo1>100</nodo1>
-        <costo>100</costo>        
-        <nodo2>200</nodo2>
-    </enlace>
-    <enlace NO = "4">
-        <nodo1>200</nodo1>
-        <costo>20</costo>        
-        <nodo2>40</nodo2>
-    </enlace>
-    <enlace NO = "5">
-        <nodo1>31</nodo1>
-        <costo>30</costo>        
-        <nodo2>42</nodo2>
-    </enlace>
-     <enlace NO = "6">
-        <nodo1>42</nodo1>
-        <costo>90</costo>        
-        <nodo2>52</nodo2>
-    </enlace>
-    <enlace NO = "7">
-        <nodo1>52</nodo1>
-        <costo>10000</costo>        
-        <nodo2>12</nodo2>
-    </enlace>
-</grafo>'));
+  <enlace NO = "1">
+    <costviaje>  </costviaje>
+    <ptopartida>  </ptopartida>
+    <ptollegada>  </ptollegada>
+  </enlace>
+  <enlace NO = "2">
+    <costviaje>  </costviaje>
+    <ptopartida>  </ptopartida>
+    <ptollegada>  </ptollegada>
+  </enlace>
+  ...
+  <enlace NO = "n">
+    <costviaje>  </costviaje>
+    <ptopartida>  </ptopartida>
+    <ptollegada>  </ptollegada>
+  </enlace>
+</grafo>
 
 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--Solucion numeral B segundo punto
+
+--Proceso que recibe el codigo de dos redes e indica cuantas y cuales
+--codigos de ciudad tienen en comun los dos grafos de rutas ingresados
   CREATE OR REPLACE PROCEDURE ciudades_comunes
   (r1_id IN red.id_red%TYPE,r2_id IN red.id_red%TYPE)
   IS 
@@ -113,3 +105,10 @@ INSERT INTO red VALUES(5,'ejemplo', XMLTYPE('
     DBMS_OUTPUT.PUT_LINE('FINISH PROCEDURE');
   END;
   /
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+--Solucion numeral C segundo punto
+
+CREATE OR REPLACE PROCEDURE posibles_rutas(codred IN red.id_red%TYPE, 
+  codciudad1 IN NUMBER, codciudad2 IN NUMBER)

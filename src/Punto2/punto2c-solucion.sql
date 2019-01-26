@@ -1,15 +1,17 @@
  
  CREATE TABLE rutasfinales(costo NUMBER(4),ruta VARCHAR(100) PRIMARY KEY) ;
+ CREATE OR REPLACE TYPE hist AS VARRAY(200) OF NUMBER(5);
 
  CREATE OR REPLACE PROCEDURE pre_rutas
   (r1_id IN red.id_red%TYPE,nodoi IN NUMBER,nodof IN NUMBER)
   IS 
+  history hist;
   BEGIN
      IF(nodoi=nodof) THEN
        DBMS_OUTPUT.PUT_LINE('no hay rutas');
      ELSE
       delete from rutasfinales;
-      rutas_posibles(r1_id,nodoi,nodof,0,' '); 
+      rutas_posibles(r1_id,nodoi,nodof,0,' ', history); 
       imprimir();   
 
      END IF;  
@@ -20,7 +22,6 @@
   IS 
     CURSOR rutas IS select * from rutasfinales order by costo DESC;
   BEGIN              
-        DBMS_OUTPUT.PUT_LINE(rutas%NO_DATA_FOUND)
         FOR r1_i IN rutas LOOP
          DBMS_OUTPUT.PUT_LINE(r1_i.ruta|| ' Total '||r1_i.costo);
         END LOOP;     
@@ -31,7 +32,7 @@
   || ' total '|| r1_i.costo
 
  CREATE OR REPLACE PROCEDURE rutas_posibles
-  (r1_id IN red.id_red%TYPE,nodoi IN NUMBER,nodof IN NUMBER,costot IN NUMBER,ruta IN VARCHAR)
+  (r1_id IN red.id_red%TYPE,nodoi IN NUMBER,nodof IN NUMBER,costot IN NUMBER,ruta IN VARCHAR, history hist)
   IS 
   costor NUMBER:=0;
   rutar  VARCHAR(20) := INITCAP('');
@@ -58,7 +59,7 @@
             
             rutar:=ruta || nodoi ||'-';
             costor:=costot+r1_i.costo;
-            rutas_posibles(r1_id,r1_i.nodo2,nodof,costor,rutar);                  
+            rutas_posibles(r1_id,r1_i.nodo2,nodof,costor,rutar,history);                  
 
           END IF;
 

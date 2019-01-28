@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <grafo>
 	<enlace NO = "1">
-		<costviaje>  </costviaje>
-		<ptopartida>  </ptopartida>
-		<ptollegada>  </ptollegada>
+		<nodo1> </nodo1>
+    		<costo> </costo>        
+    		<nodo2> </nodo2>
 	</enlace>
 	<enlace NO = "2">
-		<costviaje>  </costviaje>
-		<ptopartida>  </ptopartida>
-		<ptollegada>  </ptollegada>
+		<nodo1> </nodo1>
+    		<costo> </costo>        
+    		<nodo2> </nodo2>
 	</enlace>
 	...
 	<enlace NO = "n">
-		<costviaje>  </costviaje>
-		<ptopartida>  </ptopartida>
-		<ptollegada>  </ptollegada>
+		<nodo1> </nodo1>
+    		<costo> </costo>        
+    		<nodo2> </nodo2>
 	</enlace>
 </grafo>

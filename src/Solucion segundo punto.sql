@@ -249,3 +249,6 @@ CREATE OR REPLACE PROCEDURE pre_busqueda
      END IF;  
   END;
   /
+
+
+EXECUTE pre_busqueda(26, 1, 4);

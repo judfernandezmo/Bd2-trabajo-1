@@ -102,7 +102,7 @@
    
   EXCEPTION
   WHEN NO_DATA_FOUND THEN
-    DBMS_OUTPUT.PUT_LINE('FINISH PROCEDURE');
+    DBMS_OUTPUT.PUT_LINE('');
   END;
    /
 
@@ -120,10 +120,16 @@
  CREATE OR REPLACE PROCEDURE imprimir 
   IS 
     CURSOR rutas IS select * from rutasfinales order by costo DESC;
-  BEGIN              
-        FOR r1_i IN rutas LOOP
-         DBMS_OUTPUT.PUT_LINE(r1_i.ruta|| ' Total '||r1_i.costo);
-        END LOOP;     
+    validacion NUMBER;
+  BEGIN      
+      SELECT COUNT(*) INTO validacion FROM rutasfinales;
+      IF validacion = 0 THEN
+         DBMS_OUTPUT.PUT_LINE('No hay rutas entre las dos ciudades');
+      ELSE
+         FOR r1_i IN rutas LOOP
+           DBMS_OUTPUT.PUT_LINE(r1_i.ruta|| ' Total '||r1_i.costo);
+         END LOOP; 
+      END IF;        
 
   END;
   /
@@ -238,12 +244,12 @@ CREATE OR REPLACE PROCEDURE pre_busqueda
               imprimir();  
              
             ELSE
-              DBMS_OUTPUT.PUT_LINE('Nodo fuera de la red');
+              DBMS_OUTPUT.PUT_LINE('No hay rutas entre las dos ciudades');
             END IF;
           CLOSE red_v2;
           
         ELSE
-          DBMS_OUTPUT.PUT_LINE('Nodo fuera de la red');
+          DBMS_OUTPUT.PUT_LINE('No hay rutas entre las dos ciudades');
         END IF;
        CLOSE red_v1;
      END IF;  

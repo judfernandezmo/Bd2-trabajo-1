@@ -200,7 +200,6 @@
 CREATE OR REPLACE PROCEDURE pre_busqueda
   (red_id IN red.id_red%TYPE,nodoi IN NUMBER,nodof IN NUMBER)
   IS 
-    TYPE historial IS TABLE OF PLS_INTEGER INDEX BY PLS_INTEGER; 
     CURSOR red_v1 IS  SELECT nodo1,costo,nodo2 
                   FROM red , (XMLTABLE('/grafo/enlace'  
                                      PASSING red.grafo_rutas

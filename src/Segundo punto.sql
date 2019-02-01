@@ -141,3 +141,31 @@ INSERT INTO red VALUES(26,'varios_ejemplo', XMLTYPE('
         <nodo2>4</nodo2>
     </enlace>
 </grafo>'));
+INSERT INTO red VALUES(77,'Santiejemplo', XMLTYPE('
+<grafo>
+    <enlace NO = "1">
+        <nodo1>1</nodo1>
+        <costo>100</costo>        
+        <nodo2>2</nodo2>
+    </enlace>
+    <enlace NO = "2">
+        <nodo1>2</nodo1>
+        <costo>100</costo>        
+        <nodo2>3</nodo2>
+    </enlace>
+     <enlace NO = "3">
+        <nodo1>3</nodo1>
+        <costo>100</costo>        
+        <nodo2>4</nodo2>
+    </enlace>
+    <enlace NO = "4">
+        <nodo1>4</nodo1>
+        <costo>100</costo>        
+        <nodo2>2</nodo2>
+    </enlace>
+    <enlace NO = "5">
+        <nodo1>4</nodo1>
+        <costo>100</costo>        
+        <nodo2>1</nodo2>
+    </enlace>
+</grafo>'));

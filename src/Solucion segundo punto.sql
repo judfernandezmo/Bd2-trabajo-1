@@ -111,7 +111,7 @@
 --Solucion numeral C segundo punto
 
 --creacion de tabla auxiliar para ordenar las rutas entre ciudades
- CREATE TABLE rutasfinales(costo NUMBER(4),ruta VARCHAR(100) PRIMARY KEY) ;
+ CREATE TABLE rutasfinales(costo NUMBER(20),ruta VARCHAR(100) PRIMARY KEY) ;
  --creacion de tabla auxiliar para controlar las ciudades repetidas en las rutas
  CREATE TABLE nodos_de_ruta(nodo NUMBER (4) PRIMARY KEY NOT NULL ,indexx NUMBER (4) NOT NULL UNIQUE );
 
@@ -255,6 +255,3 @@ CREATE OR REPLACE PROCEDURE pre_busqueda
      END IF;  
   END;
   /
-
-
-EXECUTE pre_busqueda(26, 1, 4);

@@ -126,6 +126,13 @@ BEGIN
 	DBMS_OUTPUT.PUT_LINE('Suma total de ganancias de sucursales en los niveles ingresados es:  ' || acomulador_proc);
 END;
 
+DECLARE     
+valores aux_array := aux_array ('inserte valores de prueba');   
+BEGIN     
+suma_niveles(valores);   
+END;
+
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 --Solucion numeral C primer punto

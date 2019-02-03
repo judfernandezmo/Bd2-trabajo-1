@@ -156,13 +156,10 @@
    BEGIN
 
     FOR red_i IN red LOOP
-    DBMS_OUTPUT.PUT_LINE(red_i.nodo1|| ' - '||red_i.nodo2 ||  ' vs ' ||nodoi|| ' - '||nodof); 
     SELECT COUNT(*) INTO val FROM nodos_de_ruta WHERE nodo=red_i.nodo2 or nodo=red_i.nodo1 ;
       IF red_i.nodo1 = nodoi  and red_i.nodo2 = nodof THEN
-        DBMS_OUTPUT.PUT_LINE('penultimo t('|| i ||  ')='||red_i.nodo1);
         INSERT INTO nodos_de_ruta VALUES(red_i.nodo1,i);
         j:=i+1;
-        DBMS_OUTPUT.PUT_LINE('ultimo t('|| j ||  ')='||red_i.nodo2);
         INSERT INTO nodos_de_ruta VALUES(red_i.nodo2,j);
 
         rutar:= ruta||nodoi ||'-' || nodof;
@@ -173,14 +170,11 @@
 
 
       ELSIF red_i.nodo1 = nodoi THEN
-        IF val = 0 THEN
-          DBMS_OUTPUT.PUT_LINE('validacion pasa t('|| i ||  ')='||red_i.nodo1); 
+        IF val = 0 THEN 
           INSERT INTO nodos_de_ruta VALUES(red_i.nodo1,i);
           costor:=costot+red_i.costo;
           j:=i+1;
           rutar:=ruta || nodoi ||'-';
-          DBMS_OUTPUT.PUT_LINE('envio('|| red_i.nodo2 ||  ','||nodof||')'); 
-          DBMS_OUTPUT.PUT_LINE('_______________________________________'); 
           rutas(red_id,red_i.nodo2,nodof,rutar,costor,j);
         ELSE    
           delete from nodos_de_ruta;
@@ -224,7 +218,7 @@ CREATE OR REPLACE PROCEDURE pre_busqueda
     red_v2i red_v2%ROWTYPE;
   BEGIN
      IF(nodoi=nodof) THEN
-       DBMS_OUTPUT.PUT_LINE('no hay rutas');
+       DBMS_OUTPUT.PUT_LINE('Las ciudades deben ser distintas');
      ELSE
       delete from rutasfinales;
       delete from nodos_de_ruta;  

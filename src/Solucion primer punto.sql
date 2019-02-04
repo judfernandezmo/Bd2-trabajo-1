@@ -99,9 +99,6 @@ BEGIN
 			FETCH cur
 			 INTO codsuc_i, ganancia_i, level_i;
 			EXIT WHEN cur%NOTFOUND; 
-			DBMS_OUTPUT.PUT_LINE('codsuc:  ' || codsuc_i);
-			DBMS_OUTPUT.PUT_LINE('ganancia:  ' || ganancia_i);
-			DBMS_OUTPUT.PUT_LINE('level:  ' || level_i);
 			IF (level_i = nivel) THEN 
 				acomulador := acomulador + ganancia_i;
 			END IF;
@@ -116,7 +113,6 @@ CREATE OR REPLACE PROCEDURE suma_niveles (arreglo IN aux_array)
 AS 
 	acomulador_proc  NUMBER := 0;
 BEGIN
-	DBMS_OUTPUT.PUT_LINE('Cantidad de elementos:  ' || arreglo.COUNT);
 	FOR i IN arreglo.FIRST .. arreglo.LAST
 	LOOP
 		DBMS_OUTPUT.PUT_LINE('Pos:  ' || i || '  Val:  ' || arreglo(i));
@@ -125,6 +121,8 @@ BEGIN
 	END LOOP;
 	DBMS_OUTPUT.PUT_LINE('Suma total de ganancias de sucursales en los niveles ingresados es:  ' || acomulador_proc);
 END;
+
+-- Metodo de prueba
 
 DECLARE     
 valores aux_array := aux_array ('inserte valores de prueba');   
@@ -144,11 +142,10 @@ CREATE OR REPLACE PROCEDURE update_nivel (o_sucpadre IN sucursal.sucpadre%TYPE,
 	sucpadre_b IN sucursal.sucpadre%TYPE)
 AS 
 BEGIN
-	DBMS_OUTPUT.PUT_LINE('Updated:  ' || sucpadre_b);
-	DBMS_OUTPUT.PUT_LINE('Updated sucpadre sin b pero con o :v:  ' || o_sucpadre);
+	DBMS_OUTPUT.PUT_LINE('Dato modificado  ' || sucpadre_b);
+	DBMS_OUTPUT.PUT_LINE('Nuevo sucpadre:  ' || o_sucpadre);
 	UPDATE sucursal SET sucpadre = o_sucpadre
     WHERE codsuc = sucpadre_b; 
-    DBMS_OUTPUT.PUT_LINE('C marnat');
 END;
 
 --Trigger para verificar borrado rechazando si es el elemento raiz 
@@ -178,7 +175,7 @@ BEGIN
 			update_nivel(sucpadre_g,sucpadre_b);
 		END LOOP;
 		CLOSE curso;
-		COMMIT COMMENT 'El sizas funca por fin'; 
+		COMMIT COMMENT; 
     ELSE 
         RAISE_APPLICATION_ERROR(-20505, '¡No se puede borrar el elemento base!');
     END IF;	

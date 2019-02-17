@@ -214,7 +214,6 @@ INSERT INTO red VALUES(2,'CasoPacho2', XMLTYPE('
         <costo>10</costo>        
         <nodo2>7</nodo2>
     </enlace>
-
 </grafo>'));
 
 INSERT INTO red VALUES(3,'CasoPacho3', XMLTYPE('
@@ -263,3 +262,10 @@ INSERT INTO red VALUES(100,'CasoNULL', XMLTYPE('
 execute ciudades_comunes(330,220);
 execute ciudades_comunes(3,1);
 execute ciudades_comunes(100,1);
+
+execute pre_busqueda(1,1,4);
+execute pre_busqueda(2,1,6);
+execute pre_busqueda(2,1,7);
+execute pre_busqueda(3,1,6);
+
+execute pre_busqueda(330,2,3);

@@ -175,7 +175,7 @@ BEGIN
 			update_nivel(sucpadre_g,sucpadre_b);
 		END LOOP;
 		CLOSE curso;
-		COMMIT COMMENT; 
+		COMMIT; 
     ELSE 
         RAISE_APPLICATION_ERROR(-20505, '¡No se puede borrar el elemento base!');
     END IF;	
